@@ -1,0 +1,36 @@
+.footer {
+    margin-top: 40px;
+}
+
+.channel {
+    font-weight: 700;
+}
+
+.check {
+    color: green;
+}
+
+#main {
+    margin-top: 55px;
+}
+
+.info {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.pad {
+    margin-top: 40px;
+}
+
+.custom-heading {
+    padding: 3px 5px;
+}
+
+.custom-body {
+    padding: 4px 6px;
+}
+
+.error-notice {
+  margin: 5px 5px; 
+}

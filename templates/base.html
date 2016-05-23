@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A close knit community with many different personalities. Developers, gamers, anime watchers, and Linux enthusiasts.">
+    <meta name="author" content="ByteIRC">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <title>{% block title %}{% endblock title %} &middot; ByteIRC</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    <div class="container" id="main">
+      {% block content %}{% endblock content %} 
+      
+      <div class="footer">
+        <p>Copyright &copy; ByteIRC 2015. All rights reserved. <span class="badge">{{irc.active}}</span> users currently online.</p>
+      </div>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </body>
+</html>

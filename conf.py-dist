@@ -1,0 +1,5 @@
+xmlrpc_host = 'xmlrpc-hostname.com'
+xmlrpc_port = 8080
+xmlrpc_user = 'xmlrpcuser'
+xmlrpc_user_op = 'xmlrpcopuser'
+xmlrpc_pass = 'xmlrpcpass'

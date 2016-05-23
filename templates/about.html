@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}About Us{% endblock title %}
+{% block content %}
+<h1>About Us</h1>
+<hr>
+<h4>ByteIRC was founded by a few programmers that were looking to branch out, as they didn't see many IRC networks that fit their.. needs. As of writing this, ByteIRC is still extremely new, however we plan to see this network out, in hopes to grow a very large community. If this fits you, I highly suggest mingling with out members, inviting various other communities, and as one, we will grow very large!</h4>
+<div class="row">
+  <div class="col-md-4">
+    <h3><i class="fa fa-slack"></i> Channels</h3>
+    <p>Our most common channels on ByteIRC are <a class="channel" href="/channel/lobby">#lobby</a> for general chatting, and <a class="channel" href="/channel/help">#help</a> for general questions and concerns.</p>
+    <p>You may find other cool channels by visiting our <a href="/channels">channels</a> page, or using <code>/list</code> in IRC. <span class="badge">{{irc.channels}}</span> total channels registered.</p>
+  </div>
+  <div class="col-md-4">
+    <h3><i class="fa fa-bullhorn"></i> Support</h3>
+    <p>If you do happen to have an issue with another member of our community, if you see any member or guest abusing the rules, or if there is another more urgent matter, feel free to join our <a class="channel" href="/channel/support">#support</a> channel and our network staff would be happy to step in.</p>
+  </div>
+  <div class="col-md-4">
+    <h3><i class="fa fa-users"></i> Meet us!</h3>
+    <p>We are a very welcoming community, and that includes our staff members. Take a look at our staff page which fully documents our server administrators, as well as our operators.</p>
+    <p><a class="btn btn-success" href="/staff" role="button">Meet Us! <i class="fa fa-arrow-right"></i></a></p>
+  </div>
+</div>
+{% endblock content %}

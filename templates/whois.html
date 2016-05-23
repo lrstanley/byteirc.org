@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Whois{% if whois %} -- {{whois.account}}{% endif %}{% endblock title %}
+{% block content %}
+  <h1>Whois{% if whois %} {{whois.account}}{% endif %}</h1>
+  <hr>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if whois %}
+        <h4 class="text-center">Information on: <b>{{whois.account}}</b>{% if whois.count %} ({{whois.count}} users active){% endif %}</h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for setting in whois.other %}
+              <tr>
+                <td>{{setting[0]}}</td>
+                <td>{{setting[1]}}</td>
+              </tr>
+            {% endfor %}
+            {% if whois.topic %}
+              <tr>
+                <td>Topic</td>
+                <td>{{whois.topic}}</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="label label-danger"><b>Warning!</b> No information found from that search query!</div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}

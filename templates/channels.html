@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Top Channels{% endblock title %}
+{% block content %}
+<h1>Top Channel Listings ({{irc.channel_list|count}} of <span class="text-primary">{{irc.channels}}</span> total)</h1>
+<hr>
+{% for channel in irc.channel_list %}
+<div class="panel panel-default">
+  <div class="panel-heading custom-heading">
+    <a class="channel" href="/channel/{{channel.name}}">#{{channel.name}}</a>
+    (<a href="/cwhois/{{channel.name}}">Channel Information</a>)
+    <p class="pull-right">active chatters: <span class="badge">{{channel.count}}</span></p>
+  </div>
+  <div class="panel-body custom-body">
+    {{channel.topic}} -- <span class="small">set by</span> <span class="badge">{{channel.set_by}}</span>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock content %}

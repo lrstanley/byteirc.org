@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+      {% if irc.notifications %}
+         <div class="alert alert-success text-center">{{ irc.notifications[0].message }} -- by <b>{{ irc.notifications[0].author }}</b> (<b>{{ irc.notifications[0].date }}</b>)</div>
+      {% endif %}
+      <div class="jumbotron">
+        <h1>Welcome to ByteIRC</h1>
+        <p class="lead">ByteIRC is a welcoming community from all corners of the web. We pride ourselves on not sticking to a specific category.</p>
+        <p><a class="btn btn-lg btn-success" href="/channel/lobby" role="button">Come Join Us <i class="fa fa-angle-right"></i></a></p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h4><i class="fa fa-users"></i> Come join us</h4>
+          <p>As we are accessible and available at any time, feel free to drop into <a class="channel" href="/channel/lobby">#lobby</a> on irc.byteirc.org if you just want to chat with someone. Many of our users live across the world, so I'm sure someone will be awake!</p>
+        </div>
+        <div class="col-lg-6">
+          <h4><i class="fa fa-globe"></i> Easily accessible</h4>
+          <p>As we run <i>Internet Relay Chat</i> services, there are hundreds of dedicated <a href="https://en.wikipedia.org/wiki/Comparison_of_Internet_Relay_Chat_clients#General">desktop clients</a>, and <a href="http://chat.byteirc.org">web clients</a>, so it's nearly impossible not to be able to connect to IRC on your device/platform.</p>
+        </div>
+        <div class="col-lg-6">
+          <h4><i class="fa fa-list-alt"></i> Check out webchat</h4>
+          <p>Don't have an IRC client currently installed? Feel free to check out our web-based <a href="http://chat.byteirc.org">IRC client</a>. If you have a website or blog, you can even embed it!</p>
+        </div>
+        <div class="col-lg-6">
+          <h4><i class="fa fa-bar-chart"></i> View our statistics</h4>
+          <p>Take a look at our (currently non-existent) statistics page! Find out our most popular channels, as well as our server information.</p>
+        </div>
+        <div class="col-lg-6">
+          <h4><i class="fa fa-question-circle"></i> Frequently asked questions</h4>
+          <p>As you may have quite a few questions or concerns, feel free to check out our <a href="/faq">Frequently Asked Questions</a> page, and if those don't answer your questions, drop into <a class="channel" href="/channel/help">#help</a> on irc.byteirc.org.</p>
+        </div>
+        <div class="col-lg-6">
+          <h4><i class="fa fa-support"></i> Friendly IRC ops/staff/admins</h4>
+          <p>Our staff members would be more than happy to provide assistance with any issues that may arise while on our network. If you feel that there may be an issue with another member on IRC, feel free to join <a class="channel" href="/channel/support">#support</a></p>
+        </div>
+      </div>
+{% endblock content %}
