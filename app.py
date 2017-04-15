@@ -5,6 +5,7 @@ import xmlrpclib
 import time
 import re
 from thread import start_new_thread as bg
+from influxdb import InfluxDBClient
 
 
 
@@ -115,6 +116,17 @@ def testing():
     return flask.jsonify(dict(data=bots))
 
 
+influx = InfluxDBClient(influx_host, 8086, influx_user, influx_pass, influx_db)
+
+def metrics(data):
+    influx.write_points([{'measurement': 'stats', 'fields': {
+        'accounts': data['accounts'],
+        'nicks': data['nicks'],
+        'channels': data['channels'],
+        'active': data['active']
+    }}])
+
+
 def data_pull():
     global data
     while True:
@@ -125,6 +137,8 @@ def data_pull():
             data['nicks'] = int(re.search(r"Registered nicknames: ([0-9]+)", x).groups()[0])
             data['channels'] = int(re.search(r"Registered channels: ([0-9]+)", x).groups()[0])
             data['active'] = int(re.search(r"Users currently online: ([0-9]+)", x).groups()[0])
+
+            metrics(data)
 
             # Notifications
             x = ircapi("InfoServ", "LIST", op=False).split('\n')
@@ -169,7 +183,7 @@ def data_pull():
             data['bots'] = bots
         except Exception as e:
             print("Exception in check: %s" % str(e))
-        time.sleep(60)
+        time.sleep(30)
 
 
 bg(data_pull, ())
