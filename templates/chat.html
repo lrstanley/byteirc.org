@@ -3,8 +3,8 @@
 {% block content %}
 <div class="row">
   <div class="col-md-6"><h3>Chat with us{% if channel %} on #{{channel}}{% endif %}</h3></div>
-  <div class="col-md-6"><a href="http://chat.byteirc.org/?nick=webuser...&channels={% if channel %}{{channel}}{% endif %}"><h3 class="pull-right">Open in full window</h4></h3></div>
+  <div class="col-md-6"><a href="https://chat.byteirc.org/{% if channel %}?join=%23{{channel}}{% endif %}"><h3 class="pull-right">Open in full window</h4></h3></div>
 </div>
 <hr>
-<iframe src="http://chat.byteirc.org/?nick=webuser...&channels={% if channel %}{{channel}}{% endif %}" width="100%" height="600"></iframe>
+<iframe src="https://chat.byteirc.org/{% if channel %}?join=%23{{channel}}{% endif %}" width="100%" height="600"></iframe>
 {% endblock content %}
