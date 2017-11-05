@@ -6,7 +6,7 @@ import time
 import re
 from thread import start_new_thread as bg
 from influxdb import InfluxDBClient
-
+from werkzeug.routing import PathConverter
 
 
 # load the configuration file
@@ -16,6 +16,11 @@ app = flask.Flask(__name__)
 data = {}
 
 
+class EverythingConverter(PathConverter):
+        regex = '.*?'
+
+app.url_map.converters['everything'] = EverythingConverter
+
 @app.route('/')
 @app.route('/<page>')
 def main(page="index"):
@@ -24,17 +29,23 @@ def main(page="index"):
     return flask.abort(404)
 
 
-@app.route('/channel/<name>')
-def channel(name="lobby"):
+@app.route('/channel/<everything:name>')
+def channel(name=''):
+    if '/' in name:
+        name = '/' + name
     return flask.render_template('chat.html', channel=name)
 
 
 @app.route('/whois')
 @app.route('/whois/<name>')
-@app.route('/cwhois/<chan>')
+@app.route('/cwhois/<everything:chan>')
 def whois(name=False, chan=False):
     if not name and not chan:
         return flask.redirect('/')
+
+    if '/' in chan:
+        chan = '/' + chan
+
     try:
         conn, key, user = irc_key(op=False)
         if name:
@@ -102,19 +113,6 @@ def ircapi(service, command, op=False):
 @app.route('/data')
 def query_data():
     return flask.jsonify(data)
-
-
-@app.route('/test')
-def testing():
-    x = ircapi("BotServ", "BOTLIST", op=False).strip('\n').split('\n')[1:-2]
-    bots = []
-    for line in x:
-        _tmp = {}
-        # 1: Kilobyte (kilo@kilobyte.byteirc.org) [One thousand bytes]
-        _tmp['id'], _tmp['nick'], _tmp['user'], _tmp['host'], _tmp['description'] = list(re.search(r"([0-9]+): (\S+) \((.*?)@(.*?)\) \[(.*?)\]", line).groups())
-        bots.append(_tmp)
-    return flask.jsonify(dict(data=bots))
-
 
 influx = InfluxDBClient(influx_host, 8086, influx_user, influx_pass, influx_db)
 
