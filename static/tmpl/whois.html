@@ -1,0 +1,16 @@
+{% extends "/partials/base.html" %}
+{% block title %}Whois Query: {{ query }}{% endblock title %}
+{% block content %}
+<h2 class="ui dividing header">
+    <i class="server icon"></i>
+    <div class="content">
+        Whois Query: {{ query }}
+        <div class="sub header">Run a user or channel <code>/WHOIS</code> query</div>
+    </div>
+</h2>
+
+<div class="ui segment">
+    <pre><code>{{ whois }}</code></pre>
+</div>
+
+{% endblock content %}

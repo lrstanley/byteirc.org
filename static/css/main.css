@@ -1,36 +1,52 @@
-.footer {
-    margin-top: 40px;
+html { font-size: 14px; }
+html, body { height: 100%; }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
-.channel {
-    font-weight: 700;
+.main.container {
+    margin-top: 5em;
+    flex: 1;
 }
 
-.check {
-    color: green;
+.ui.footer.segment {
+    margin: 5em 0 0;
+    padding: 5em 0;
 }
 
-#main {
-    margin-top: 55px;
+a { color: #4183C4; text-decoration: none; }
+a:hover { color: #1e70bf; text-decoration: none; }
+
+.ui.jumbo.message {
+    background-color: rga(238, 238, 238);
+    box-shadow: none;
+    padding: 3em 3em;
+}
+.ui.jumbo.message h1.ui.header {
+    font-size: 4em; /* 4.5em? */
+}
+.ui.jumbo.message p.lead {
+    font-size: 1.6em;
+    color: #333333;
+    line-height: 1.6;
+    font-weight: 300;
 }
 
-.info {
-    margin-top: 15px;
-    margin-bottom: 15px;
+.popup.card {
+    padding: 0 !important;
 }
 
-.pad {
-    margin-top: 40px;
+.ui.footer.segment {
+    padding: 5em 0 3em;
 }
 
-.custom-heading {
-    padding: 3px 5px;
-}
-
-.custom-body {
-    padding: 4px 6px;
-}
-
-.error-notice {
-  margin: 5px 5px; 
+.footer .stats {
+    color: #FFFFFF;
+    min-width: 30px;
+    margin-right: 4px;
+    display: inline-block;
+    text-align: right;
 }

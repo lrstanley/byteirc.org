@@ -1,9 +1,0 @@
-xmlrpc_host = 'xmlrpc-hostname.com'
-xmlrpc_port = 8080
-xmlrpc_user = 'xmlrpcuser'
-xmlrpc_user_op = 'xmlrpcopuser'
-xmlrpc_pass = 'xmlrpcpass'
-influx_host = 'metrics.yourdomain.com'
-influx_user = 'influxuser'
-influx_pass = 'influxpass'
-influx_db = 'yourdb'

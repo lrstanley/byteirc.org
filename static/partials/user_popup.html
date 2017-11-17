@@ -1,0 +1,29 @@
+<div class="ui special popup card" style="width: 200px;">
+    <a class="image" href="/whois/{{ user.Account }}"><img src="{{ user.Avatar() }}"></a>
+    <div class="content">
+        <div class="center aligned header" style="position: relative;top: -15px;margin-top: -25px;color: white;">
+            {% if user.Metadata.DisplayName %}
+                {{ user.Metadata.DisplayName }}
+            {% else %}
+                {{ user.Nick }}{% if user.Account && user.Account != user.Nick %} ({{ user.Account }}){% endif %}
+            {% endif %}
+        </div>
+        <div class="meta">
+            <a href="/whois/{{ user.Account }}">{{ user.Account|truncatechars:14 }}</a>
+
+            {% if user.Metadata.Location %}
+                <a class="right floated" href="https://www.google.com/maps/search/?api=1&query={{ user.Metadata.Location|urlencode }}">{{ user.Metadata.Location }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="extra content">
+        {% if user.Metadata.URL %}
+            {% if user.Metadata.URL.String() %}
+                <a href="{{ user.Metadata.URL.String() }}">{{ user.Metadata.URL.String()|truncatechars:20 }}</a>
+            {% endif %}
+        {% endif %}
+        {% if !user.Registered.IsZero() %}
+            <span class="right floated" title="{{ user.Registered.Format('Mon Jan _2 15:04:05 MST 2006') }}">Joined {{ user.Registered.Year() }}</span>
+        {% endif %}
+    </div>
+</div>

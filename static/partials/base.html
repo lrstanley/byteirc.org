@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="A close knit community with many different personalities. Developers, gamers, anime watchers, and Linux enthusiasts.">
+    <link rel="icon" href="/static/img/favicon.ico">
+
+    <title>{% block title %}{% endblock title %} &middot; ByteIRC</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/semantic.min.css?{{ cachetag }}">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css?{{ cachetag }}">
+</head>
+<body>
+    <div class="ui fixed inverted large menu">
+        <div class="ui container">
+            <a href="/" class="header item">
+                <i class="inverted large comments icon"></i> ByteIRC
+            </a>
+            <a href="/" class="item">
+                <i class="inverted teal home icon"></i> Home
+            </a>
+            <a href="/about" class="item">
+                <i class="inverted red heart icon"></i> About
+            </a>
+            <a href="/servers" class="item">
+                <i class="inverted green server icon"></i> Server List
+            </a>
+            <a href="/staff" class="item">
+                <i class="inverted yellow users icon"></i> Staff
+            </a>
+            <a href="/channels" class="item">
+                <i class="inverted hashtag icon"></i> Channels
+            </a>
+            <a href="/aup" class="item">
+                <i class="inverted red info icon"></i> AUP
+            </a>
+
+            <div class="right menu">
+                <div class="item">
+                    <div class="ui primary button">
+                        <i class="comments icon"></i> Chat with us!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui main container">{% block content %}{% endblock content %}</div>
+
+    <div class="ui inverted vertical footer segment">
+        <div class="ui container">
+            <div class="ui stackable inverted divided equal height centered stackable grid">
+                <div class="three wide column">
+                    <h4 class="ui inverted header">About</h4>
+                    <div class="ui inverted link list">
+                        <a href="/about" class="item">The Network</a>
+                        <a href="/channel/support" class="item">Contact Us</a>
+                        <a href="/staff" class="item">The Staff</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Services</h4>
+                    <div class="ui inverted link list">
+                        <a href="/servers" class="item">Server List</a>
+                        <a href="/aup" class="item">Acceptable Use Policy</a>
+                        <a href="https://chat.byteirc.org/" class="item">Webchat</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Service Statistics</h4>
+                    <div class="ui inverted link list">
+                        <div class="item"><span class="stats">{{ cache.ActiveCount }}</span> users online</div>
+                        <div class="item"><span class="stats">{{ cache.ChannelCount }}</span> channels registered</div>
+                        <div class="item"><span class="stats">{{ cache.AccountCount }}</span> accounts registered</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui inverted section divider" style="margin: 1em 0 0"></div>
+            <div class="ui horizontal inverted small divided link list">
+              Copyright &copy; ByteIRC &amp; Liam Stanley 2015-{{ now.Year() }}
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/jquery.min.js?{{ cachetag }}"></script>
+    <script src="/static/js/semantic.min.js?{{ cachetag }}"></script>
+    <script src="/static/js/linkify.min.js?{{ cachetag }}"></script>
+    <script src="/static/js/main.js?{{ cachetag }}"></script>
+</body>
+</html>

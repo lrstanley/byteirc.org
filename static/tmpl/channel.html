@@ -1,0 +1,16 @@
+{% extends "/partials/base.html" %}
+{% block title %}Chat With Us: {{ query }}{% endblock title %}
+{% block content %}
+<h2 class="ui dividing header">
+    <i class="server hashtag icon"></i>
+    <div class="content">
+        Channel: {{ query }}
+        <div class="sub header">Chat, without leaving the browser! (<a href="https://chat.byteirc.org/?join={{ query|urlencode }}">view fullscreen</a>)</div>
+    </div>
+</h2>
+
+<div class="ui segment">
+    <iframe src="https://chat.byteirc.org/?join={{ query|urlencode }}" width="100%" height="600" frameborder="0"></iframe>
+</div>
+
+{% endblock content %}

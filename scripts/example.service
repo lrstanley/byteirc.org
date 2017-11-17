@@ -1,0 +1,18 @@
+; can go in /etc/systemd/system/byteirc.service
+; make sure to:
+;  $ systemctl enable byteirc
+;  $ systemctl start byteirc
+[Unit]
+Description=byteirc
+
+[Service]
+ExecStart=/path/to/byteirc/byteirc -b :8080
+WorkingDirectory=/path/to/byteirc/
+LimitNOFILE=4096
+; change this
+User=youruser
+Group=youruser
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

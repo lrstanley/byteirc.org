@@ -1,0 +1,49 @@
+{% extends "/partials/base.html" %}
+{% block title %}Popular Channels{% endblock title %}
+{% block content %}
+<h2 class="ui dividing header">
+    <i class="icon info circle"></i>
+    <div class="content">
+        Channel Listing
+        <div class="sub header">View the top <a class="ui mini teal circular label">{{ cache.Channels|length }}</a> of <a class="ui mini blue circular label">{{ cache.ChannelCount }}</a> channels active on ByteIRC</div>
+    </div>
+</h2>
+
+<div class="ui two cards">
+    {% for channel in cache.Channels %}
+        <div class="card">
+            <div class="content">
+                <a class="header" href="/channel/{{ channel.Name|urlencode }}">{{ channel.Name }}</a>
+                {% if channel.Author %}
+                    <div class="meta">
+                        topic: last updated by <span class="wants-popup" data-position="bottom center">{{ channel.Author.Nick }}</span>
+                        {% include '/partials/user_popup.html' with user=channel.Author %}
+                    </div>
+                {% endif %}
+                <div class="description">
+                    <p class="linkify">{{ channel.Topic }}</p>
+                </div>
+            </div>
+            <div class="extra content">
+                    <span class="right floated" style="margin-left: 10px;">
+                        <i class="purple flag icon"></i>
+                        Registered: {{ channel.Registered.Format('Jan _2, 2006') }}
+                    </span>
+                    <a class="right floated" href="/cwhois/{{ channel.Name|urlencode }}">
+                        <i class="red question circle icon"></i>
+                        <code>WHOIS</code>
+                    </a>
+                <span>
+                    <i class="blue users icon"></i>
+                    {{ channel.Count }} users
+                </span>
+                <span style="margin-left: 10px;">
+                    <i class="green protect icon"></i>
+                    <span class="wants-popup" data-position="bottom center">{{ channel.Founder.Nick }}</span>
+                    {% include '/partials/user_popup.html' with user=channel.Founder %}
+                </span>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

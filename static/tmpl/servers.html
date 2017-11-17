@@ -1,0 +1,119 @@
+{% extends "/partials/base.html" %}
+{% block title %}Server List{% endblock title %}
+{% block content %}
+<h2 class="ui dividing header">
+    <i class="server icon"></i>
+    <div class="content">
+        Server List
+        <div class="sub header">View our network topology</div>
+    </div>
+</h2>
+
+<p style="font-size: 20px;margin: 30px 0 30px;">
+    As we thought of all the things over here at ByteIRC, to join, you can
+    simply use irc.byteirc.org, and this will connect you to the next available
+    server.
+</p>
+
+<div class="ui four statistics">
+    <div class="ui blue statistic">
+        <div class="value">{{ cache.ActiveCount }}</div>
+        <div class="label">Users online</div>
+    </div>
+    <div class="ui orange statistic">
+        <div class="value">{{ cache.NickCount }}</div>
+        <div class="label">Nicknames registered</div>
+    </div>
+    <div class="ui red statistic">
+        <div class="value">{{ cache.ChannelCount }}</div>
+        <div class="label">Channels registered</div>
+    </div>
+    <div class="ui teal statistic">
+        <div class="value">{{ cache.AccountCount }}</div>
+        <div class="label">Accounts registered</div>
+    </div>
+</div>
+
+
+<h4 class="ui top attached block header" style="margin-top: 60px;"><i class="small green server icon"></i> Server Information</h4>
+<div class="ui bottom attached segment">
+    <table class="ui very basic celled table">
+        <thead>
+            <tr>
+                <th>Server Hostname</th>
+                <th>Location</th>
+                <th>Administrator(s)</th>
+                <th>IPv4</th>
+                <th>IPv6</th>
+                <th>Port(s)</th>
+                <th>SSL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>broadwell.byteirc.org</td>
+                <td><a href="https://www.google.com/maps/place/Montreal,+QC,+Canada/@45.5601451,-73.7120832,4z">Montreal, Canada (North America)</a></td>
+                <td>Liam</td>
+                <td><i class="green check icon"></i> Yes</td>
+                <td><i class="green check icon"></i> Yes</td>
+                <td>6665-6669</td>
+                <td><i class="green check icon"></i> (6697)</td>
+            </tr>
+            <tr>
+                <td>haswell.byteirc.org</td>
+                <td><a href="https://www.google.com/maps/place/Montreal,+QC,+Canada/@45.5601451,-73.7120832,4z">Montreal, Canada (North America)</a></td>
+                <td>Liam</td>
+                <td><i class="green check icon"></i> Yes</td>
+                <td><i class="green check icon"></i> Yes</td>
+                <td>6665-6669</td>
+                <td><i class="green check icon"></i> (6697)</td>
+            </tr>
+            <tr>
+                <td>kabylake.byteirc.org</td>
+                <td><a href="https://www.google.com/maps/place/Montreal,+QC,+Canada/@45.5601451,-73.7120832,4z">Montreal, Canada (North America)</a></td>
+                <td>Liam &amp; Spitfire (Ucl)</td>
+                <td><i class="green check icon"></i> Yes</td>
+                <td><i class="green check icon"></i> Yes</td>
+                <td>6665-6669</td>
+                <td><i class="green check icon"></i> (6697)</td>
+            </tr>
+            <tr>
+                <td>services.byteirc.org</td>
+                <td><a href="https://www.google.com/maps/place/Montreal,+QC,+Canada/@45.5601451,-73.7120832,4z">Montreal, Canada (North America)</a></td>
+                <td>Liam</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h4 class="ui top attached block header" style="margin-top: 40px;"><i class="small teal life ring icon"></i> Service bots</h4>
+<div class="ui bottom attached segment">
+    <table class="ui very basic compact celled table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nickname</th>
+                <th>Ident</th>
+                <th>Hostname</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bot in cache.Bots %}
+            <tr>
+                <td>{{ bot.ID }}</td>
+                <td><a href="https://www.google.com/search?q={{ bot.Nick }}">{{ bot.Nick }}</a></td>
+                <td>{{ bot.User }}</td>
+                <td>{{ bot.Host }}</td>
+                <td>{{ bot.Description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

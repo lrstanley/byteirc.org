@@ -1,0 +1,51 @@
+{% extends "/partials/base.html" %}
+{% block title %}Meet Us{% endblock title %}
+{% block content %}
+<h2 class="ui dividing header">
+    <i class="hand spock icon"></i>
+    <div class="content">
+        Meet Us
+        <div class="sub header">The ByteIRC staff <i class="red heart icon"></i></div>
+    </div>
+</h2>
+
+<p style="font-size: 20px;margin: 30px 0 30px;">
+    Our staff were hand picked with you in mind (<i class="red heart icon"></i>).
+    Our staff members will be explicitly following the same guidelines that
+    any other member of this community will be. Below, you find a list of
+    each of our staff members, their roles, and what they are administrating.
+</p>
+
+<div class="ui link cards">
+    {% for user in cache.IRCOps %}
+    <div class="card" style="width: 250px;">
+        <a class="image" href="/whois/{{ user.Account }}"><img src="{{ user.Avatar() }}"></a>
+        <div class="content">
+            <div class="center aligned header">
+                {% if user.Metadata.DisplayName %}
+                    {{ user.Metadata.DisplayName }}
+                {% else %}
+                    {{ user.Nick }} {% if user.Account && user.Account != user.Nick %}({{ user.Account }}){% endif %}
+                {% endif %}
+            </div>
+            <div class="meta">
+                <a href="/whois/{{ user.Account }}">{{ user.Account|truncatechars:14 }}</a>
+
+                {% if user.Metadata.Location %}
+                    <a class="right floated" href="https://www.google.com/maps/search/?api=1&query={{ user.Metadata.Location|urlencode }}">{{ user.Metadata.Location }}</a>
+                {% endif %}
+            </div>
+            <div class="description">{{ user.Metadata.About }}</div>
+        </div>
+        <div class="extra content">
+            {% if user.Metadata.URL.String() %}
+                <a href="{{ user.Metadata.URL.String() }}">{{ user.Metadata.URL.String()|truncatechars:20 }}</a>
+            {% endif %}
+            {% if !user.Registered.IsZero() %}
+                <span class="right floated" title="{{ user.Registered.Format('Mon Jan _2 15:04:05 MST 2006') }}">Joined {{ user.Registered.Year() }}</span>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

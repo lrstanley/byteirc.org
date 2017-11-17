@@ -1,0 +1,17 @@
+{% extends "/partials/base.html" %}
+{% block title %}Acceptable Use Policy{% endblock title %}
+{% block content %}
+<h2 class="ui dividing header">
+    <i class="icon info circle"></i>
+    <div class="content">
+        Acceptable Use Policies (AUP)
+        <div class="sub header">Follow our rules, and we are more than welcoming</div>
+    </div>
+</h2>
+
+{% for rule in conf.AUP %}
+    <div id="{{ forloop.Counter }}" class="ui raised segment">
+        <a class="ui blue ribbon label" href="#{{ forloop.Counter }}">#{{ forloop.Counter }}</a> {{ rule }}
+    </div>
+{% endfor %}
+{% endblock content %}

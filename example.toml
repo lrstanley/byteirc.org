@@ -1,0 +1,20 @@
+ircops = ["user1", "user2"]
+aup = [
+    "Rule 1",
+    "Rule 2"
+]
+
+[rpc]
+host = "host.example.com"
+port = 8080
+admin = "opuser"
+admin_password = "password"
+user = "user"
+user_password = "password"
+
+[influx]
+endpoint = "http://metrics.example.com:8086"
+username = "admin"
+password = "password"
+database = "byteirc"
+retention = ""
