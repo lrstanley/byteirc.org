@@ -3,6 +3,12 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "pPH/BoINXxzYDObljpsGZbysMrw=",
+			"path": "github.com/BurntSushi/toml",
+			"revision": "b26d9c308763d68093482582cea63d69be07a0f0",
+			"revisionTime": "2017-03-28T06:15:53Z"
+		},
+		{
 			"checksumSHA1": "c4dFBfQ1TiTG3CAp6MpMen/nWXU=",
 			"path": "github.com/GeertJohan/go.rice",
 			"revision": "c02ca9a983da5807ddf7d796784928f5be4afd09",
@@ -13,6 +19,12 @@
 			"path": "github.com/GeertJohan/go.rice/embedded",
 			"revision": "c02ca9a983da5807ddf7d796784928f5be4afd09",
 			"revisionTime": "2017-04-20T13:57:05Z"
+		},
+		{
+			"checksumSHA1": "RLjW2GoEu83LAZLuLSlzLdiyHYQ=",
+			"path": "github.com/bluele/gcache",
+			"revision": "472614239ac7e5bc6461e237c798a6ebd5aff8c1",
+			"revisionTime": "2017-10-10T15:56:17Z"
 		},
 		{
 			"checksumSHA1": "8i+beEgcVf0q/I7lTqo2ERZM/OU=",
@@ -31,6 +43,24 @@
 			"path": "github.com/go-chi/chi",
 			"revision": "40c607ea5d9f34240e783bcdbb701e049fb666d6",
 			"revisionTime": "2017-10-27T18:50:12Z"
+		},
+		{
+			"checksumSHA1": "L6lDFW0n2BJgujmsUKEPMpX1HTk=",
+			"path": "github.com/influxdata/influxdb/client/v2",
+			"revision": "aa99a56bf122efc5a5d74dd22c10651ebfab4031",
+			"revisionTime": "2017-11-16T23:58:30Z"
+		},
+		{
+			"checksumSHA1": "TrPglEvTo7PkUsobn9NHs0FA9uU=",
+			"path": "github.com/influxdata/influxdb/models",
+			"revision": "aa99a56bf122efc5a5d74dd22c10651ebfab4031",
+			"revisionTime": "2017-11-16T23:58:30Z"
+		},
+		{
+			"checksumSHA1": "H/J/qLqzUONXIecHHKtVZmxJZZA=",
+			"path": "github.com/influxdata/influxdb/pkg/escape",
+			"revision": "aa99a56bf122efc5a5d74dd22c10651ebfab4031",
+			"revisionTime": "2017-11-16T23:58:30Z"
 		},
 		{
 			"checksumSHA1": "VrHSM9dRBPL3ufyl8qTnHCnF/cg=",
@@ -57,20 +87,6 @@
 			"revisionTime": "2015-04-13T19:18:30Z"
 		},
 		{
-			"checksumSHA1": "eOXF2PEvYLMeD8DSzLZJWbjYzco=",
-			"origin": "github.com/y0ssar1an/q/vendor/github.com/kr/pretty",
-			"path": "github.com/kr/pretty",
-			"revision": "6b7c8d614407104f7229b040b9ef735eef22611d",
-			"revisionTime": "2017-09-13T18:50:01Z"
-		},
-		{
-			"checksumSHA1": "uulQHQ7IsRKqDudBC8Go9J0gtAc=",
-			"origin": "github.com/y0ssar1an/q/vendor/github.com/kr/text",
-			"path": "github.com/kr/text",
-			"revision": "6b7c8d614407104f7229b040b9ef735eef22611d",
-			"revisionTime": "2017-09-13T18:50:01Z"
-		},
-		{
 			"checksumSHA1": "weaEt68eszoJLdgl+MGbYqk4ozc=",
 			"path": "github.com/pressly/chi",
 			"revision": "40c607ea5d9f34240e783bcdbb701e049fb666d6",
@@ -87,12 +103,6 @@
 			"path": "github.com/sharpner/pobin",
 			"revision": "a1ad054245353a07192d6ff7d5c993d3e17b9d0f",
 			"revisionTime": "2015-11-04T21:18:29Z"
-		},
-		{
-			"checksumSHA1": "GnEqm/02WxhzSF8gejNvkos7wCc=",
-			"path": "github.com/y0ssar1an/q",
-			"revision": "6b7c8d614407104f7229b040b9ef735eef22611d",
-			"revisionTime": "2017-09-13T18:50:01Z"
 		}
 	],
 	"rootPath": "github.com/lrstanley/byteirc.org"
