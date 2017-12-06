@@ -53,6 +53,10 @@ func httpServer() {
 		WriteTimeout: 10 * time.Second,
 	}
 
+	if cli.Debug {
+		srv.WriteTimeout = 40 * time.Second
+	}
+
 	if cli.TLS.Enable {
 		logger.Printf("initializing https server on %s", cli.HTTP)
 		logger.Fatal(srv.ListenAndServeTLS(cli.TLS.Cert, cli.TLS.Key))

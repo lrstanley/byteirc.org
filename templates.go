@@ -25,7 +25,13 @@ func setupTmpl() {
 var assetTimestamp = time.Now().Unix()
 
 func tmpl(w http.ResponseWriter, r *http.Request, path string, ctx map[string]interface{}) {
-	atmpl, err := assetfs.FromFile(path)
+	var atmpl *pongo2.Template
+	var err error
+	if cli.Debug {
+		atmpl, err = assetfs.FromFile(path)
+	} else {
+		atmpl, err = assetfs.FromCache(path)
+	}
 	if orig, ok := err.(*pongo2.Error); ok {
 		if os.IsNotExist(orig.OrigError) {
 			NotFoundHandler(w, r)
