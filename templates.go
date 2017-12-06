@@ -12,7 +12,7 @@ import (
 
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/flosch/pongo2"
-	"github.com/pressly/chi"
+	"github.com/go-chi/chi"
 	"github.com/sharpner/pobin"
 )
 
