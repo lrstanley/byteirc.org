@@ -9,18 +9,13 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/kolo/xmlrpc"
+	"github.com/lrstanley/go-xmlrpc"
 )
 
 func rpcCall(op bool, args ...interface{}) (string, error) {
 	logger.Printf("executing xmlrpc request to %s:%d: %#v", conf.RPC.Host, conf.RPC.Port, args)
-	client, err := xmlrpc.NewClient(fmt.Sprintf("http://%s:%d/xmlrpc", conf.RPC.Host, conf.RPC.Port), nil)
-	if err != nil {
-		return "", err
-	}
-	defer client.Close()
 
-	var key string
+	uri := fmt.Sprintf("http://%s:%d/xmlrpc", conf.RPC.Host, conf.RPC.Port)
 
 	authUser := conf.RPC.Admin
 	authPassword := conf.RPC.AdminPassword
@@ -29,15 +24,16 @@ func rpcCall(op bool, args ...interface{}) (string, error) {
 		authPassword = conf.RPC.UserPassword
 	}
 
-	if err := client.Call("atheme.login", []interface{}{authUser, authPassword}, &key); err != nil {
+	result, err := xmlrpc.Call(uri, "atheme.login", authUser, authPassword)
+	if err != nil {
 		return "", err
 	}
 
-	callArgs := []interface{}{key, authUser, "*"}
+	callArgs := []interface{}{result.(string), authUser, "*"}
 	callArgs = append(callArgs, args...)
 
-	var result interface{}
-	if err := client.Call("atheme.command", callArgs, &result); err != nil {
+	result, err = xmlrpc.Call(uri, "atheme.command", callArgs...)
+	if err != nil {
 		return "", err
 	}
 
