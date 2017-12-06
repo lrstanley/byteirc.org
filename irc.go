@@ -194,6 +194,7 @@ func updateCache() error {
 	if err != nil {
 		return err
 	}
+	defer metrics.Close()
 
 	batch, err := influx.NewBatchPoints(influx.BatchPointsConfig{
 		Database:        conf.Influx.Database,
