@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/lrstanley/go-xmlrpc"
+	"github.com/mattn/go-xmlrpc"
 )
 
 func rpcCall(op bool, args ...interface{}) (string, error) {
