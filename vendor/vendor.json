@@ -47,28 +47,28 @@
 			"versionExact": "fix-260"
 		},
 		{
-			"checksumSHA1": "w87omtAnCYopKRXCyJmQQXKzMRY=",
+			"checksumSHA1": "biZUshk6kZIfFAyL9pT5FDg2pwA=",
 			"path": "github.com/go-chi/chi/middleware",
-			"revision": "687d2792aedd8e8ac3bbd8592cf55b91d7ea8ce9",
-			"revisionTime": "2017-11-20T15:19:03Z"
+			"revision": "e83ac2304db3c50cf03d96a2fcd39009d458bc35",
+			"revisionTime": "2017-12-22T16:11:33Z"
 		},
 		{
-			"checksumSHA1": "L6lDFW0n2BJgujmsUKEPMpX1HTk=",
+			"checksumSHA1": "O4XpbSNeUhSIMD2FWtQximJiFIs=",
 			"path": "github.com/influxdata/influxdb/client/v2",
-			"revision": "fd11e200c8b2e4d23c31945e330b2768b83d46f5",
-			"revisionTime": "2017-11-30T22:41:50Z"
+			"revision": "a43cff36eeef00a32ab53d8be7dedb1740ec64a5",
+			"revisionTime": "2018-01-05T19:29:00Z"
 		},
 		{
-			"checksumSHA1": "TrPglEvTo7PkUsobn9NHs0FA9uU=",
+			"checksumSHA1": "cfumoC9gHEUROd+fA8qK3WLFAZQ=",
 			"path": "github.com/influxdata/influxdb/models",
-			"revision": "fd11e200c8b2e4d23c31945e330b2768b83d46f5",
-			"revisionTime": "2017-11-30T22:41:50Z"
+			"revision": "a43cff36eeef00a32ab53d8be7dedb1740ec64a5",
+			"revisionTime": "2018-01-05T19:29:00Z"
 		},
 		{
 			"checksumSHA1": "H/J/qLqzUONXIecHHKtVZmxJZZA=",
 			"path": "github.com/influxdata/influxdb/pkg/escape",
-			"revision": "fd11e200c8b2e4d23c31945e330b2768b83d46f5",
-			"revisionTime": "2017-11-30T22:41:50Z"
+			"revision": "a43cff36eeef00a32ab53d8be7dedb1740ec64a5",
+			"revisionTime": "2018-01-05T19:29:00Z"
 		},
 		{
 			"checksumSHA1": "VrHSM9dRBPL3ufyl8qTnHCnF/cg=",
@@ -89,16 +89,16 @@
 			"revisionTime": "2017-05-10T13:15:34Z"
 		},
 		{
-			"checksumSHA1": "nTXiYQrn2IjY9bX7L9SB5dzM9vU=",
-			"path": "github.com/mattn/go-xmlrpc",
-			"revision": "e3b27f37a5373399d610c6c94e478a863f7dc976",
-			"revisionTime": "2017-12-06T10:13:26Z"
+			"checksumSHA1": "ocqnJ33uXmAf8IxCXd0leGXYGSw=",
+			"path": "github.com/lrstanley/pt",
+			"revision": "13943cfd45a9e556762c7a74e9e9f4d6c4ac25d7",
+			"revisionTime": "2017-12-16T04:55:26Z"
 		},
 		{
-			"checksumSHA1": "IaSCVanHwRdLIUhWLDJ9KwbWwxo=",
-			"path": "github.com/sharpner/pobin",
-			"revision": "a1ad054245353a07192d6ff7d5c993d3e17b9d0f",
-			"revisionTime": "2015-11-04T21:18:29Z"
+			"checksumSHA1": "N/2owMIS3K96v7umSDTM9YKjSzM=",
+			"path": "github.com/mattn/go-xmlrpc",
+			"revision": "3f86e9b4ab374d9082cb709da40c9147d6e252b9",
+			"revisionTime": "2017-12-06T11:36:39Z"
 		}
 	],
 	"rootPath": "github.com/lrstanley/byteirc.org"
