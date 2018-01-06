@@ -14,12 +14,6 @@ import (
 	"github.com/jessevdk/go-flags"
 )
 
-var (
-	version = "master"
-	commit  = "latest"
-	date    = "-"
-)
-
 type Flags struct {
 	Debug      bool   `short:"d" long:"debug" description:"enable debugging (pprof endpoints)"`
 	ConfigPath string `short:"c" long:"config-path" description:"path to configuration file" default:"config.toml"`

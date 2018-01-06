@@ -7,16 +7,31 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/lrstanley/pt"
 )
 
+var tmpl *pt.Loader
+
 func httpServer() {
-	setupTmpl()
+	tmpl = pt.New("", pt.Config{
+		CacheParsed: !cli.Debug,
+		Loader:      rice.MustFindBox("static").Bytes,
+		ErrorLogger: os.Stderr,
+		DefaultCtx: func(w http.ResponseWriter, r *http.Request) (ctx map[string]interface{}) {
+			ctx = pt.M{"conf": &conf, "now": time.Now()}
+			cw.RLock()
+			ctx["cache"] = cw.cache
+			cw.RUnlock()
+			return ctx
+		},
+	})
 
 	r := chi.NewRouter()
 
@@ -27,13 +42,15 @@ func httpServer() {
 	r.Use(middleware.RequestLogger(&middleware.DefaultLogFormatter{Logger: logger}))
 	r.Use(middleware.Timeout(30 * time.Second))
 	r.Use(middleware.Recoverer)
-	FileServer(r, "/static", rice.MustFindBox("static").HTTPBox())
+
+	pt.FileServer(r, "/static", rice.MustFindBox("static").HTTPBox())
+
 	if cli.Debug {
 		r.Mount("/debug", middleware.Profiler())
 	}
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl(w, r, "tmpl/index.html", nil)
+		tmpl.Render(w, r, "/tmpl/index.html", nil)
 	})
 
 	r.Get("/channel/{channel}", channelHandler)
@@ -41,10 +58,10 @@ func httpServer() {
 	r.Get("/whois/{user}", whoisHandler)
 
 	r.Get("/{page}", func(w http.ResponseWriter, r *http.Request) {
-		tmpl(w, r, fmt.Sprintf("tmpl/%s.html", chi.URLParam(r, "page")), nil)
+		tmpl.Render(w, r, fmt.Sprintf("/tmpl/%s.html", chi.URLParam(r, "page")), nil)
 	})
 
-	r.NotFound(NotFoundHandler)
+	r.NotFound(notFoundHandler)
 
 	srv := &http.Server{
 		Addr:         cli.HTTP,
@@ -66,15 +83,15 @@ func httpServer() {
 	logger.Fatal(srv.ListenAndServe())
 }
 
-func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
+func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	tmpl(w, r, "tmpl/notfound.html", nil)
+	tmpl.Render(w, r, "/tmpl/notfound.html", nil)
 }
 
 func cwhoisHandler(w http.ResponseWriter, r *http.Request) {
 	ch := strings.TrimPrefix(r.URL.Path, "/cwhois/")
 	if ch == "" {
-		NotFoundHandler(w, r)
+		notFoundHandler(w, r)
 		return
 	}
 
@@ -91,7 +108,7 @@ func cwhoisHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	tmpl(w, r, "tmpl/whois.html", map[string]interface{}{"query": ch, "whois": out})
+	tmpl.Render(w, r, "/tmpl/whois.html", pt.M{"query": ch, "whois": out})
 }
 
 func whoisHandler(w http.ResponseWriter, r *http.Request) {
@@ -106,13 +123,13 @@ func whoisHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	tmpl(w, r, "tmpl/whois.html", map[string]interface{}{"query": user, "whois": out})
+	tmpl.Render(w, r, "/tmpl/whois.html", pt.M{"query": user, "whois": out})
 }
 
 func channelHandler(w http.ResponseWriter, r *http.Request) {
 	ch := strings.TrimPrefix(r.URL.Path, "/channel/")
 	if ch == "" {
-		NotFoundHandler(w, r)
+		notFoundHandler(w, r)
 		return
 	}
 
@@ -120,5 +137,5 @@ func channelHandler(w http.ResponseWriter, r *http.Request) {
 		ch = "#" + ch
 	}
 
-	tmpl(w, r, "tmpl/channel.html", map[string]interface{}{"query": ch})
+	tmpl.Render(w, r, "/tmpl/channel.html", pt.M{"query": ch})
 }
