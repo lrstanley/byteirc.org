@@ -25,10 +25,11 @@ func httpServer() {
 		Loader:      rice.MustFindBox("static").Bytes,
 		ErrorLogger: os.Stderr,
 		DefaultCtx: func(w http.ResponseWriter, r *http.Request) (ctx map[string]interface{}) {
-			ctx = pt.M{"conf": &conf, "now": time.Now()}
-			cw.RLock()
-			ctx["cache"] = cw.cache
-			cw.RUnlock()
+			ctx = pt.M{
+				"conf":  &conf,
+				"now":   time.Now(),
+				"cache": gircCache.Load().(*ircCache),
+			}
 			return ctx
 		},
 	})
@@ -59,6 +60,10 @@ func httpServer() {
 
 	r.Get("/{page}", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.Render(w, r, fmt.Sprintf("/tmpl/%s.html", chi.URLParam(r, "page")), nil)
+	})
+
+	r.Get("/api/cache", func(w http.ResponseWriter, r *http.Request) {
+		pt.JSON(w, r, gircCache.Load().(*ircCache))
 	})
 
 	r.NotFound(notFoundHandler)

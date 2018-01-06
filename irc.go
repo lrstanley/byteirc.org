@@ -13,7 +13,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/bluele/gcache"
@@ -24,51 +24,51 @@ var reAthemeKV = regexp.MustCompile(`(?m)^ *([^:]+?) *: *(.*)$`)
 var reNotification = regexp.MustCompile(`(?m)^([0-9]+): \[[^\]]+\] by ([^\s]+) at ([^\s]+) on ([^:]+): (.*)$`)
 
 type Notification struct {
-	ID      int
-	Author  *User
-	Time    string
-	Date    string
-	Message string
+	ID      int    `json:"id"`
+	Author  *User  `json:"author"`
+	Time    string `json:"time"`
+	Date    string `json:"date"`
+	Message string `json:"message"`
 }
 
 var reChannel = regexp.MustCompile(`(?m)^(\#[^\s]+)\s+([0-9]+)\s+:(.*) \(([^\)]+)\)$`)
 
 type Channel struct {
-	Name       string
-	Count      int
-	Topic      string
-	Author     *User
-	Founder    *User
-	Registered time.Time
+	Name       string    `json:"name"`
+	Count      int       `json:"count"`
+	Topic      string    `json:"topic"`
+	Author     *User     `json:"author"`
+	Founder    *User     `json:"founder"`
+	Registered time.Time `json:"registered"`
 }
 
 var reUserAccount = regexp.MustCompile(`Information on ([^\s]+) \(account ([^\s]+)\)`)
 var reUserMetadata = regexp.MustCompile(`(?m)^ *Metadata *:  *([^=]+?) *= *(.*)$`)
 
 type User struct {
-	Nick       string
-	Account    string
-	Registered time.Time
-	LastAddr   string
-	LastSeen   time.Time
-	RealAddr   string
-	Email      string
-	Nicks      string
-	Channels   string
-	LastQuit   string
+	Nick       string    `json:"nick"`
+	Account    string    `json:"account"`
+	Registered time.Time `json:"registered"`
+	LastAddr   string    `json:"last_addr"`
+	LastSeen   time.Time `json:"last_seen"`
+	realAddr   string
+	email      string
+	nicks      string
+	Channels   string `json:"channels"`
+	LastQuit   string `json:"last_quit"`
 
 	Metadata struct {
-		URL         *url.URL
-		DisplayName string
-		Location    string
-		About       string
-	}
+		URL         *url.URL `json:"url"`
+		DisplayName string   `json:"display_name"`
+		Location    string   `json:"location"`
+		About       string   `json:"about"`
+	} `json:"metadata"`
 }
 
 func (u *User) Avatar() string {
-	if u.Email != "" {
+	if u.email != "" {
 		h := md5.New()
-		io.WriteString(h, u.Email)
+		io.WriteString(h, u.email)
 		return fmt.Sprintf("https://www.gravatar.com/avatar/%x?d=identicon&s=300", h.Sum(nil))
 	}
 
@@ -78,35 +78,30 @@ func (u *User) Avatar() string {
 var reBot = regexp.MustCompile(`(?m)^ *([0-9]+): ([^ ]+) \(([^@]+)@([^\)]+)\) \[([^\]]+)\]$`)
 
 type Bot struct {
-	ID          int
-	Nick        string
-	User        string
-	Host        string
-	Description string
+	ID          int    `json:"id"`
+	Nick        string `json:"nick"`
+	User        string `json:"user"`
+	Host        string `json:"host"`
+	Description string `json:"description"`
 }
 
-type CacheWrapper struct {
-	sync.RWMutex
-	cache *Cache
+type ircCache struct {
+	AccountCount int `json:"account_count"`
+	NickCount    int `json:"nick_count"`
+	ChannelCount int `json:"channel_count"`
+	ActiveCount  int `json:"active_count"`
+
+	Notifications []*Notification `json:"notifications"`
+	Channels      []*Channel      `json:"channels"`
+	Bots          []*Bot          `json:"bots"`
+	IRCOps        []*User         `json:"irc_ops"`
 }
 
-type Cache struct {
-	AccountCount int
-	NickCount    int
-	ChannelCount int
-	ActiveCount  int
-
-	Notifications []*Notification
-	Channels      []*Channel
-	Bots          []*Bot
-	IRCOps        []*User
-}
-
-var cw = &CacheWrapper{}
+var gircCache atomic.Value
 
 func updateCache() error {
 	logger.Println("updating cache")
-	cache := &Cache{}
+	cache := &ircCache{}
 
 	out, err := rpcCall(true, "OperServ", "UPTIME")
 	if err != nil {
@@ -176,9 +171,7 @@ func updateCache() error {
 		cache.IRCOps = append(cache.IRCOps, user)
 	}
 
-	cw.Lock()
-	cw.cache = cache
-	cw.Unlock()
+	gircCache.Store(cache)
 
 	// Push metrics as well.
 	if conf.Influx.Endpoint == "" {
@@ -246,9 +239,9 @@ func lookupUser(nick string) (*User, error) {
 		Registered: ircTime(fields["Registered"]),
 		LastAddr:   fields["Last addr"],
 		LastSeen:   ircTime(fields["Last seen"]),
-		RealAddr:   fields["Real addr"],
-		Email:      strings.Replace(fields["Email"], " (hidden)", "", -1),
-		Nicks:      fields["Nicks"],
+		realAddr:   fields["Real addr"],
+		email:      strings.Replace(fields["Email"], " (hidden)", "", -1),
+		nicks:      fields["Nicks"],
 		Channels:   fields["Channels"],
 		LastQuit:   fields["Last quit"],
 	}
