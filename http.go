@@ -32,6 +32,7 @@ func httpServer() {
 			}
 			return ctx
 		},
+		NotFoundHandler: http.NotFound,
 	})
 
 	r := chi.NewRouter()
