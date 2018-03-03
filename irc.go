@@ -66,7 +66,7 @@ type User struct {
 }
 
 func (u *User) Avatar() string {
-	if u.email != "" {
+	if u != nil && u.email != "" {
 		h := md5.New()
 		io.WriteString(h, u.email)
 		return fmt.Sprintf("https://www.gravatar.com/avatar/%x?d=identicon&s=300", h.Sum(nil))
