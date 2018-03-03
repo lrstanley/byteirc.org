@@ -37,11 +37,13 @@
                     <i class="blue users icon"></i>
                     {{ channel.Count }} users
                 </span>
+                {% if channel.Founder %}
                 <span style="margin-left: 10px;">
                     <i class="green protect icon"></i>
                     <span class="wants-popup" data-position="bottom center">{{ channel.Founder.Nick }}</span>
                     {% include '/partials/user_popup.html' with user=channel.Founder %}
                 </span>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
