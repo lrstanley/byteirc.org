@@ -216,6 +216,9 @@ var ulCache = gcache.New(50).LRU().Build()
 
 func lookupUser(nick string) (*User, error) {
 	nick = strings.ToLower(nick)
+	if i := strings.Index(nick, ","); i > -1 {
+		nick = nick[:i]
+	}
 
 	userCache, err := ulCache.Get(nick)
 	if err != nil {
