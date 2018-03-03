@@ -107,8 +107,8 @@ func cwhoisHandler(w http.ResponseWriter, r *http.Request) {
 
 	out, err := rpcWhois(ch)
 	if err != nil {
-		if strings.Contains(err.Error(), "not registered") {
-			out = err.Error()
+		if strings.Contains(err.Error(), "not registered") || strings.Contains(err.Error(), "missing params") {
+			out = "Unknown channel or not registered."
 		} else {
 			panic(err)
 		}
