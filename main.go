@@ -35,13 +35,6 @@ type Config struct {
 		User          string `toml:"user"`
 		UserPassword  string `toml:"user_password"`
 	} `toml:"rpc"`
-	Influx struct {
-		Endpoint  string `toml:"endpoint"`
-		Username  string `toml:"username"`
-		Password  string `toml:"password"`
-		Database  string `toml:"database"`
-		Retention string `toml:"retention"`
-	} `toml:"influx"`
 	IRCOps []string `toml:"ircops"`
 	AUP    []string `toml:"aup"`
 }

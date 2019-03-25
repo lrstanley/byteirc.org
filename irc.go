@@ -17,7 +17,6 @@ import (
 	"time"
 
 	"github.com/bluele/gcache"
-	influx "github.com/influxdata/influxdb/client/v2"
 )
 
 var reAthemeKV = regexp.MustCompile(`(?m)^ *([^:]+?) *: *(.*)$`)
@@ -172,44 +171,7 @@ func updateCache() error {
 	}
 
 	gircCache.Store(cache)
-
-	// Push metrics as well.
-	if conf.Influx.Endpoint == "" {
-		return nil
-	}
-
-	metrics, err := influx.NewHTTPClient(influx.HTTPConfig{
-		Addr:     conf.Influx.Endpoint,
-		Username: conf.Influx.Username,
-		Password: conf.Influx.Password,
-		Timeout:  5 * time.Second,
-	})
-	if err != nil {
-		return err
-	}
-	defer metrics.Close()
-
-	batch, err := influx.NewBatchPoints(influx.BatchPointsConfig{
-		Database:        conf.Influx.Database,
-		RetentionPolicy: conf.Influx.Retention,
-	})
-	if err != nil {
-		return err
-	}
-
-	point, err := influx.NewPoint("stats", nil, map[string]interface{}{
-		"accounts": cache.AccountCount,
-		"nicks":    cache.NickCount,
-		"channels": cache.ChannelCount,
-		"active":   cache.ActiveCount,
-	}, time.Now())
-	if err != nil {
-		return err
-	}
-	batch.AddPoint(point)
-
-	logger.Printf("writing metrics to %q:%q", conf.Influx.Endpoint, conf.Influx.Database)
-	return metrics.Write(batch)
+	return nil
 }
 
 var ulCache = gcache.New(50).LRU().Build()

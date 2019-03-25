@@ -11,10 +11,3 @@ admin = "opuser"
 admin_password = "password"
 user = "user"
 user_password = "password"
-
-[influx]
-endpoint = "http://metrics.example.com:8086"
-username = "admin"
-password = "password"
-database = "byteirc"
-retention = ""

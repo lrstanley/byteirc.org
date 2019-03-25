@@ -6,8 +6,7 @@
 rice-box*
 *.test
 *.prof
-vendor/*
-!vendor/*.json
+vendor
 *.lock
 byteirc
 byteirc.org
